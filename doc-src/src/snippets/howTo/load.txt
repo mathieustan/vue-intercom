@@ -1,3 +1,10 @@
 import VueIntercom from '@mathieustan/vue-intercom';
 
-Vue.use(VueIntercom, { app_id: 'INTERCOM_APP_ID' });
+Vue.use(VueIntercom, {
+  appId: 'INTERCOM_APP_ID'
+  /* Others options are allowed
+  alignment: 'left',
+  horizontal_padding: 20,
+  vertical_padding: 20,
+  */
+});
