@@ -1,0 +1,5 @@
+npm install @mathieustan/vue-intercom --save
+
+Or
+
+yarn add @mathieustan/vue-intercom

@@ -1,0 +1,22 @@
+<script>
+  ...
+  data: () => ({
+    userId: 1,
+    name: 'Foo Bar',
+    email: 'foo@bar.com',
+  }),
+  created () {
+    this.$intercom.boot({
+      user_id: this.userId,
+      name: this.name,
+      email: this.email,
+    });
+    this.$intercom.show();
+  },
+  watch: {
+    email(email) {
+      this.$intercom.update({ email });
+    },
+  }
+  ...
+</script>

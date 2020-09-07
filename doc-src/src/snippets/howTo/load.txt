@@ -1,0 +1,3 @@
+import VueIntercom from '@mathieustan/vue-intercom';
+
+Vue.use(VueIntercom, { app_id: 'INTERCOM_APP_ID' });
