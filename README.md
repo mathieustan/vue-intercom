@@ -2,7 +2,16 @@
 
 > A wrapper for Intercom.
 
-## Installation
+-   [Demo](#demo)
+-   [Install](#install)
+-   [Usage](#usage)
+-   [API](#api)
+
+## Demo
+
+To view a demo online: <https://vue-intercom.netlify.app/>
+
+## Install
 
 ```bash
 npm install --save @mathieustan/vue-intercom
