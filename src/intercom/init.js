@@ -2,7 +2,12 @@
 
 // Helpers
 import { isValidType, mapInstanceToProps } from '../utils';
-import { callIntercom, onInitIntercom, onBootIntercom } from '../utils/intercom';
+import {
+  callIntercom,
+  onInitIntercom,
+  onBootIntercom,
+  onShutdownIntercom,
+} from '../utils/intercom';
 
 // Thanks to https://github.com/johnnynotsolucky/vue-intercom/blob/master/src/index.js
 export default function initIntercom (Vue, { appId }) {
@@ -22,7 +27,7 @@ export default function initIntercom (Vue, { appId }) {
     _call: callIntercom,
     _init: () => onInitIntercom(vm),
     boot: (options = defaultOptions) => onBootIntercom(vm, Object.assign({}, defaultOptions, options)),
-    shutdown: () => callIntercom('shutdown'),
+    shutdown: () => onShutdownIntercom(vm),
     update: (...options) => callIntercom('update', ...options),
     show: () => callIntercom('show'),
     hide: () => callIntercom('hide'),

@@ -2,6 +2,7 @@ export {
   callIntercom,
   onInitIntercom,
   onBootIntercom,
+  onShutdownIntercom,
 };
 
 function callIntercom (...args) {
@@ -19,4 +20,9 @@ function onInitIntercom (vm) {
 function onBootIntercom (vm, options) {
   vm.isBooted = true;
   callIntercom('boot', options);
+}
+
+function onShutdownIntercom (vm) {
+  vm.isBooted = false;
+  callIntercom('shutdown');
 }

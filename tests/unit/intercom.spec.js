@@ -111,10 +111,14 @@ describe('Intercom plugin', () => {
     describe('shutdown', () => {
       it('shutdown', () => {
         const wrapper = mountApp();
+
+        wrapper.vm.$intercom._vm.isBooted = true;
+
         wrapper.vm.$intercom.shutdown();
 
         expect(window.Intercom).toHaveBeenCalledTimes(1);
         expect(window.Intercom).toHaveBeenCalledWith('shutdown');
+        expect(wrapper.vm.$intercom.isBooted).toEqual(false);
       });
     });
 
