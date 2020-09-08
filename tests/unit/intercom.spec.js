@@ -22,6 +22,7 @@ describe('Intercom plugin', () => {
     it('has default initial state', () => {
       const wrapper = mountApp();
       expect(wrapper.vm.$intercom.ready).toEqual(false);
+      expect(wrapper.vm.$intercom.isBooted).toEqual(false);
       expect(wrapper.vm.$intercom.visible).toEqual(false);
       expect(wrapper.vm.$intercom.unreadCount).toEqual(0);
     });
@@ -66,6 +67,7 @@ describe('Intercom plugin', () => {
 
         expect(window.Intercom).toHaveBeenCalledTimes(1);
         expect(window.Intercom).toHaveBeenCalledWith('boot', { app_id: 'foobar' });
+        expect(wrapper.vm.$intercom.isBooted).toEqual(true);
 
         const options = window.Intercom.mock.calls[0][1];
         expect(options.app_id).toEqual('foobar');
@@ -78,6 +80,7 @@ describe('Intercom plugin', () => {
 
         expect(window.Intercom).toHaveBeenCalledTimes(1);
         expect(window.Intercom).toHaveBeenCalledWith('boot', { app_id: 'lorem-ipsum' });
+        expect(wrapper.vm.$intercom.isBooted).toEqual(true);
 
         const options = window.Intercom.mock.calls[0][1];
         expect(options.app_id).toEqual('lorem-ipsum');
@@ -97,6 +100,7 @@ describe('Intercom plugin', () => {
           user_id: 123,
           name: 'Foo Bar',
         });
+        expect(wrapper.vm.$intercom.isBooted).toEqual(true);
 
         const options = window.Intercom.mock.calls[0][1];
         expect(options.user_id).toEqual(123);

@@ -16,6 +16,7 @@ function onInitIntercom (vm) {
   callIntercom('onUnreadCountChange', unreadCount => (vm.unreadCount = unreadCount));
 }
 
-function onBootIntercom (options) {
+function onBootIntercom (vm, options) {
+  vm.isBooted = true;
   callIntercom('boot', options);
 }

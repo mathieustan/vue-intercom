@@ -9,6 +9,7 @@ export default function initIntercom (Vue, { appId }) {
   const vm = new Vue({
     data: () => ({
       ready: false,
+      isBooted: false,
       visible: false,
       unreadCount: 0,
     }),
@@ -20,7 +21,7 @@ export default function initIntercom (Vue, { appId }) {
     _vm: vm,
     _call: callIntercom,
     _init: () => onInitIntercom(vm),
-    boot: (options = defaultOptions) => onBootIntercom(Object.assign({}, defaultOptions, options)),
+    boot: (options = defaultOptions) => onBootIntercom(vm, Object.assign({}, defaultOptions, options)),
     shutdown: () => callIntercom('shutdown'),
     update: (...options) => callIntercom('update', ...options),
     show: () => callIntercom('show'),
@@ -37,7 +38,7 @@ export default function initIntercom (Vue, { appId }) {
 
   Object.defineProperties(
     intercom,
-    mapInstanceToProps(vm, ['ready', 'visible', 'unreadCount'])
+    mapInstanceToProps(vm, ['ready', 'isBooted', 'visible', 'unreadCount'])
   );
 
   return intercom;
