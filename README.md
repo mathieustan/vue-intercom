@@ -2,6 +2,8 @@
 
 > A wrapper for Intercom.
 
+This package is to replace [vue-intercom](https://github.com/johnnynotsolucky/vue-intercom) which is not maintained anymore.
+
 -   [Demo](#demo)
 -   [Install](#install)
 -   [Usage](#usage)
@@ -65,6 +67,10 @@ new Vue({
 #### `$intercom.ready`
 
 Set to `true` once the Intercom script has been loaded.
+
+#### `$intercom.isBooted`
+
+Set to `true` once the Intercom boot method has been called.
 
 #### `$intercom.visible`
 
