@@ -1,7 +1,7 @@
 export {
   callIntercom,
-  onInit,
-  onBoot,
+  onInitIntercom,
+  onBootIntercom,
 };
 
 function callIntercom (...args) {
@@ -9,17 +9,17 @@ function callIntercom (...args) {
   return window.Intercom(...args);
 }
 
-function onInit (vm) {
+function onInitIntercom (vm) {
   vm.ready = true;
   callIntercom('onHide', () => (vm.visible = false));
   callIntercom('onShow', () => (vm.visible = true));
   callIntercom('onUnreadCountChange', unreadCount => (vm.unreadCount = unreadCount));
 }
 
-function onBoot (options, appId) {
+function onBootIntercom (options, appId) {
   if (!options.app_id) options.app_id = appId;
   if (!appId) {
-    console.warn('You didn\'t specified Itercom appId. Please check your configuration.');
+    console.warn('You didn\'t specified Intercom appId. Please check your configuration.');
     return;
   }
 
