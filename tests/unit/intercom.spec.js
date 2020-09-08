@@ -1,7 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 
 import Vue from 'vue';
-import { mount } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
+
+import VueIntercom from '../../src';
+
+const localVue = createLocalVue();
+localVue.use(VueIntercom, { appId: 'foobar' });
 
 describe('Intercom plugin', () => {
   let mountApp;
@@ -10,13 +15,7 @@ describe('Intercom plugin', () => {
   });
 
   beforeEach(() => {
-    mountApp = (props) => mount(EmptyComponent, props);
-  });
-
-  afterEach(() => {
-    jest.resetModules();
-    jest.clearAllMocks();
-    document.body.innerHTML = '';
+    mountApp = () => mount(EmptyComponent, { localVue });
   });
 
   describe('State', () => {
@@ -53,9 +52,13 @@ describe('Intercom plugin', () => {
   });
 
   describe('Intercom javascript functions', () => {
-    describe('boot', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
+    beforeEach(() => (window.Intercom = jest.fn()));
+    afterEach(() => {
+      jest.resetModules();
+      jest.clearAllMocks();
+    });
 
+    describe('boot', () => {
       it('is called with an app_id attribute', () => {
         const wrapper = mountApp();
 
@@ -102,8 +105,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('shutdown', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('shutdown', () => {
         const wrapper = mountApp();
         wrapper.vm.$intercom.shutdown();
@@ -114,8 +115,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('update', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('called with no attributes', () => {
         const wrapper = mountApp();
         wrapper.vm.$intercom.update();
@@ -145,8 +144,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('show', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('called', () => {
         const wrapper = mountApp();
 
@@ -157,8 +154,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('hide', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('called', () => {
         const wrapper = mountApp();
         wrapper.vm.$intercom.hide();
@@ -169,8 +164,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('showMessages', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('called', () => {
         const wrapper = mountApp();
         wrapper.vm.$intercom.showMessages();
@@ -181,8 +174,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('showNewMessage', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('called without pre-populated content', () => {
         const wrapper = mountApp();
         wrapper.vm.$intercom.showNewMessage();
@@ -209,8 +200,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('trackEvent', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('called with event name', () => {
         const wrapper = mountApp();
         wrapper.vm.$intercom.trackEvent('foobar');
@@ -240,8 +229,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('startTour', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('called with event name', () => {
         const wrapper = mountApp();
         wrapper.vm.$intercom.startTour('foobar');
@@ -271,8 +258,6 @@ describe('Intercom plugin', () => {
     });
 
     describe('getVisitorId', () => {
-      beforeEach(() => (window.Intercom = jest.fn()));
-
       it('called', () => {
         const wrapper = mountApp();
         wrapper.vm.$intercom.getVisitorId();

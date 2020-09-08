@@ -16,12 +16,6 @@ function onInitIntercom (vm) {
   callIntercom('onUnreadCountChange', unreadCount => (vm.unreadCount = unreadCount));
 }
 
-function onBootIntercom (options, appId) {
-  if (!options.app_id) options.app_id = appId;
-  if (!appId) {
-    console.warn('You didn\'t specified Intercom appId. Please check your configuration.');
-    return;
-  }
-
+function onBootIntercom (options) {
   callIntercom('boot', options);
 }

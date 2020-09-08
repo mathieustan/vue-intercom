@@ -14,11 +14,13 @@ export default function initIntercom (Vue, { appId }) {
     }),
   });
 
+  const defaultOptions = { app_id: appId };
+
   const intercom = {
     _vm: vm,
     _call: callIntercom,
     _init: () => onInitIntercom(vm),
-    boot: (options = {}) => onBootIntercom(options, appId),
+    boot: (options = defaultOptions) => onBootIntercom(Object.assign({}, defaultOptions, options)),
     shutdown: () => callIntercom('shutdown'),
     update: (...options) => callIntercom('update', ...options),
     show: () => callIntercom('show'),

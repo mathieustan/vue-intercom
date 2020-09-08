@@ -2,6 +2,9 @@
 import OurVue from 'vue';
 import { initIntercom, loadIntercom } from './intercom';
 
+// Helpers
+import { isValidType } from './utils';
+
 let intercomInstalled = false;
 
 export function install (Vue, options = {}) {
@@ -11,6 +14,11 @@ export function install (Vue, options = {}) {
   // Init vueIntercom
   // ---------------------------
   const { appId } = options;
+  if (!isValidType(String, appId)) {
+    console.warn('You didn\'t specified Intercom appId. Please check your configuration.');
+    return;
+  }
+
   const vueIntercom = initIntercom(Vue, { appId });
   Object.defineProperty(Vue.prototype, '$intercom', {
     get: () => vueIntercom,
