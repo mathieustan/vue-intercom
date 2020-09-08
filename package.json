@@ -1,7 +1,7 @@
 {
   "name": "@mathieustan/vue-intercom",
   "description": "A wrapper for Intercom",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Mathieu Stanowski <mathieu.stan@gmail.com>",
   "keywords": [
     "vue",
