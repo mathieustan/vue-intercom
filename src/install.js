@@ -1,9 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import OurVue from 'vue';
-import { initIntercom, loadIntercom } from './intercom';
+
+// Lib
+import Intercom from './lib';
 
 // Helpers
-import { isValidType } from './utils';
+import {
+  isValidType,
+} from './utils';
 
 let intercomInstalled = false;
 
@@ -14,26 +18,24 @@ export function install (Vue, options = {}) {
   // Init vueIntercom
   // ---------------------------
   const { appId } = options;
+
   if (!isValidType(String, appId)) {
     console.warn('You didn\'t specified Intercom appId. Please check your configuration.');
     return;
   }
 
-  const vueIntercom = initIntercom(Vue, { appId });
-  Object.defineProperty(Vue.prototype, '$intercom', {
-    get: () => vueIntercom,
-  });
+  const intercom = new Intercom({ appId });
 
   // ---------------------------
   // Load Intercom
   // Instantiate $intercom in vue global wrapper
   // ---------------------------
   Vue.mixin({
-    beforeCreate () {
+    async beforeCreate () {
       if (intercomInstalled) return;
 
       // CF => https://developers.intercom.com/installing-intercom/docs/basic-javascript
-      if (typeof window.Intercom === 'function') {
+      if (typeof window.Intercom === 'function' && this.$intercom) {
         this.$intercom._init();
         this.$intercom._call('reattach_activator');
         this.$intercom.update();
@@ -43,7 +45,11 @@ export function install (Vue, options = {}) {
         placeholder.c = args => placeholder.q.push(args);
         window.Intercom = placeholder;
 
-        loadIntercom(appId, () => this.$intercom._init());
+        this.$intercom = Vue.observable(intercom);
+        Vue.prototype.$intercom = this.$intercom;
+
+        await this.$intercom._load();
+        this.$intercom._init();
       }
 
       intercomInstalled = true;

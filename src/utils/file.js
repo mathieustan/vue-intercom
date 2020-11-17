@@ -1,6 +1,8 @@
-export { loadIntercomScript };
+export {
+  loadAsyncScript,
+};
 
-function loadIntercomScript (appId, done) {
+function loadAsyncScript (appId, instance) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.async = true;
@@ -8,5 +10,5 @@ function loadIntercomScript (appId, done) {
 
   const firstScript = document.getElementsByTagName('script')[0];
   firstScript.parentNode.insertBefore(script, firstScript);
-  script.onload = done;
+  script.onload = () => instance.emit('ready');
 }

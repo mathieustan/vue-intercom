@@ -21,7 +21,7 @@ describe('Intercom plugin', () => {
   describe('State', () => {
     it('has default initial state', () => {
       const wrapper = mountApp();
-      expect(wrapper.vm.$intercom.ready).toEqual(false);
+      expect(wrapper.vm.$intercom.ready).toEqual(true);
       expect(wrapper.vm.$intercom.isBooted).toEqual(false);
       expect(wrapper.vm.$intercom.visible).toEqual(false);
       expect(wrapper.vm.$intercom.unreadCount).toEqual(0);
@@ -44,8 +44,8 @@ describe('Intercom plugin', () => {
     it('exposes state changes through internal vm', () => {
       const wrapper = mountApp();
 
-      wrapper.vm.$intercom._vm.visible = true;
-      wrapper.vm.$intercom._vm.unreadCount = 1;
+      wrapper.vm.$intercom.visible = true;
+      wrapper.vm.$intercom.unreadCount = 1;
 
       expect(wrapper.vm.$intercom.visible).toEqual(true);
       expect(wrapper.vm.$intercom.unreadCount).toEqual(1);
@@ -112,7 +112,7 @@ describe('Intercom plugin', () => {
       it('shutdown', () => {
         const wrapper = mountApp();
 
-        wrapper.vm.$intercom._vm.isBooted = true;
+        wrapper.vm.$intercom.isBooted = true;
 
         wrapper.vm.$intercom.shutdown();
 

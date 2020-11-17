@@ -1,6 +1,11 @@
+import Intercom from './lib';
 import VueIntercom from './plugin';
 
 export default VueIntercom;
+
+export {
+  Intercom,
+};
 
 const install = VueIntercom.install;
 VueIntercom.install = (Vue, options) => {
