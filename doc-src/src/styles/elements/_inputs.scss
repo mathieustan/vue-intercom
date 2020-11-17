@@ -1,0 +1,124 @@
+.input-text {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: hidden;
+
+  /* Input, Textarea */
+  & > input,
+  & > textarea {
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+    border-top: solid 27px transparent;
+    border-bottom: solid 1px rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    border-radius: 4px 4px 0 0;
+    padding: 0 12px 4px;
+    width: 100%;
+    height: inherit;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.04);
+    box-shadow: none; /* Firefox */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    caret-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    transition: border-bottom 0.2s, background-color 0.2s;
+
+    &:hover {
+      border-bottom-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+      background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.08);
+    }
+  }
+
+  /* Span */
+  & > input + span,
+  & > textarea + span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    box-sizing: border-box;
+    padding: 7px 12px 0;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    font-size: 75%;
+    line-height: 18px;
+    pointer-events: none;
+    transition: color 0.2s, font-size 0.2s, line-height 0.2s;
+
+
+    /* Underline */
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+      transform-origin: bottom center;
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+  }
+}
+
+/* Placeholder-shown */
+.input-text > input:not(:focus):placeholder-shown + span,
+.input-text > textarea:not(:focus):placeholder-shown + span {
+  font-size: inherit;
+  line-height: 48px;
+}
+
+/* Focus */
+.input-text > input:focus,
+.input-text > textarea:focus {
+  outline: none;
+}
+
+.input-text > input:focus + span,
+.input-text > textarea:focus + span {
+  color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.input-text > input:focus + span::before,
+.input-text > textarea:focus + span::before {
+  opacity: 0.12;
+}
+
+.input-text > input:focus + span::after,
+.input-text > textarea:focus + span::after {
+  transform: scale(1);
+}
+
+/* Disabled */
+.input-text > input:disabled,
+.input-text > textarea:disabled {
+  border-bottom-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+  color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+  background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.24);
+}
+
+.input-text > input:disabled + span,
+.input-text > textarea:disabled + span {
+  color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+}
+
+/* Faster transition in Safari for less noticable fractional font-size issue */
+@media not all and (min-resolution:.001dpcm) {
+  @supports (-webkit-appearance:none) {
+      .input-text > input,
+      .input-text > input + span,
+      .input-text > input + span::after,
+      .input-text > textarea,
+      .input-text > textarea + span,
+      .input-text > textarea + span::after {
+          transition-duration: 0.1s;
+      }
+  }
+}

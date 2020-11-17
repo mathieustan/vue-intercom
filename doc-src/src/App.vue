@@ -32,6 +32,37 @@
             them through the <code>$intercom</code> object in your components.
           </p>
           <CodeWrapper type="javascript" :source="snippets.usage" />
+
+          <div class="d-flex flex-column m-t-16">
+            <label class="input-text" for="userId">
+              <input id="userId" v-model="user._id" type="text" />
+              <span>User Id :</span>
+            </label>
+          </div>
+
+          <div class="d-flex flex-column m-t-16">
+            <label class="input-text" for="userName">
+              <input id="userName" v-model="user.name" type="text" />
+              <span>User Name :</span>
+            </label>
+          </div>
+
+          <div class="d-flex flex-column m-t-16">
+            <label class="input-text" for="userEmail">
+              <input id="userEmail" v-model="user.email" type="text" />
+              <span>User Email :</span>
+            </label>
+          </div>
+
+          <div class="d-flex flex-row m-t-16">
+            <button class="button m-r-8" @click="bootIntercom(user)"> Boot </button>
+            <button class="button m-r-8" @click="shutdownIntercom"> Shutdown </button>
+            <button class="button m-r-8" @click="hideIntercom"> Hide </button>
+            <button class="button m-r-8" @click="showIntercom"> Show </button>
+          </div>
+
+          <p>isLoaded : {{ isIntercomLoaded }}</p>
+          <p>isInitialized : {{ isIntercomInitialized }}</p>
         </section>
       </div>
     </div>
@@ -41,22 +72,26 @@
 <script>
 // Mixins
 import snippets from '@/mixins/snippets';
+import intercom from '@/mixins/intercom';
 
 // Components
 import CodeWrapper from '@/components/CodeWrapper.vue';
 import Header from '@/components/Header.vue';
 
-import './styles/main.scss';
-
 export default {
   name: 'App',
-  mixins: [snippets],
+  mixins: [snippets, intercom],
   components: {
     CodeWrapper,
     Header,
   },
   data: () => ({
     snippets: {},
+    user: {
+      _id: '',
+      name: '',
+      email: '',
+    },
   }),
   async mounted() {
     const snippets = [

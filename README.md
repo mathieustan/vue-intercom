@@ -8,10 +8,12 @@ This package is to replace [vue-intercom](https://github.com/johnnynotsolucky/vu
 -   [Install](#install)
 -   [Usage](#usage)
 -   [API](#api)
+-   [Test integration locally](#test)
 
 ## Demo
 
 To view a demo online: <https://vue-intercom.netlify.app/>
+
 
 ## Install
 
@@ -121,3 +123,26 @@ Calls `Intercom('startTour')` with extra metadata if provided.
 #### `$intercom.getVisitorId()`
 
 Calls `Intercom('getVisitorId')`.
+
+
+## Test intercom integration locally
+
+Requires npm 12+
+
+First, clone project & install doc dependencies :
+
+```bash
+git clone git@github.com:mathieustan/vue-intercom.git
+cd vue-intercom/doc-src/
+npm install
+```
+
+Then, you need to set your `VUE_APP_INTERCOM_APP_ID` inside `.env` file.
+
+Finally, start project :
+
+```bash
+npm run serve
+```
+
+You'll be able to test from this url : http://localhost:8080
