@@ -36,8 +36,8 @@ export function install (Vue, options = {}) {
 
       // CF => https://developers.intercom.com/installing-intercom/docs/basic-javascript
       if (typeof window.Intercom === 'function' && this.$intercom) {
-        this.$intercom._init();
-        this.$intercom._call('reattach_activator');
+        this.$intercom.init();
+        this.$intercom.callIntercom('reattach_activator');
         this.$intercom.update();
       } else {
         const placeholder = (...args) => placeholder.c(args);
@@ -48,8 +48,8 @@ export function install (Vue, options = {}) {
         this.$intercom = Vue.observable(intercom);
         Vue.prototype.$intercom = this.$intercom;
 
-        await this.$intercom._load();
-        this.$intercom._init();
+        await this.$intercom.load();
+        this.$intercom.init();
       }
 
       intercomInstalled = true;

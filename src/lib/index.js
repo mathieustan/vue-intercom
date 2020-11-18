@@ -17,9 +17,6 @@ export default class Intercom extends EventEmitter {
     this.visible = false;
     this.unreadCount = 0;
 
-    this._call = this.callIntercom;
-    this._load = this.load;
-    this._init = this.init;
     this._ready = new Promise(resolve => this.once('ready', resolve));
   }
 
@@ -39,14 +36,14 @@ export default class Intercom extends EventEmitter {
   // Init Intercom service
   init () {
     this.ready = true;
-    this._call('onHide', () => (this.visible = false));
-    this._call('onShow', () => (this.visible = true));
-    this._call('onUnreadCountChange', unreadCount => (this.unreadCount = unreadCount));
+    this.callIntercom('onHide', () => (this.visible = false));
+    this.callIntercom('onShow', () => (this.visible = true));
+    this.callIntercom('onUnreadCountChange', unreadCount => (this.unreadCount = unreadCount));
   }
 
   // Boot Intercom service with user
   boot (options) {
-    this._call('boot', Object.assign({}, this.defaultOptions, options));
+    this.callIntercom('boot', Object.assign({}, this.defaultOptions, options));
     this.isBooted = true;
   }
 
@@ -57,24 +54,24 @@ export default class Intercom extends EventEmitter {
 
   shutdown () {
     this.isBooted = false;
-    this._call('shutdown');
+    this.callIntercom('shutdown');
   }
 
-  update (...options) { this._call('update', ...options); }
+  update (...options) { this.callIntercom('update', ...options); }
 
-  show () { this._call('show'); }
+  show () { this.callIntercom('show'); }
 
-  hide () { this._call('hide'); }
+  hide () { this.callIntercom('hide'); }
 
-  showMessages () { this._call('showMessages'); }
+  showMessages () { this.callIntercom('showMessages'); }
 
   showNewMessage (content) {
-    this._call('showNewMessage', ...(isValidType(String, content) ? [content] : []));
+    this.callIntercom('showNewMessage', ...(isValidType(String, content) ? [content] : []));
   }
 
-  trackEvent (name, ...metadata) { this._call('trackEvent', ...[name, ...metadata]); }
+  trackEvent (name, ...metadata) { this.callIntercom('trackEvent', ...[name, ...metadata]); }
 
-  startTour (id, ...metadata) { this._call('startTour', ...[id, ...metadata]); }
+  startTour (id, ...metadata) { this.callIntercom('startTour', ...[id, ...metadata]); }
 
-  getVisitorId () { this._call('getVisitorId'); }
+  getVisitorId () { this.callIntercom('getVisitorId'); }
 }

@@ -51,7 +51,7 @@ describe('Intercom: Class', () => {
       const intercom = new Intercom({ appId: 'fakeAppId' });
 
       expect(intercom._eventsCount).toEqual(1);
-      await intercom._load();
+      await intercom.load();
       expect(intercom._eventsCount).toEqual(0);
     });
 

@@ -75,9 +75,9 @@ async function initIntercomService() {
   const intercom = new Intercom({ appId });
 
   // Load Intercom script
-  await intercom._load();
+  await intercom.load();
   // Init Intercom listeners
-  intercom._init();
+  intercom.init();
 
   return intercom;
 }
