@@ -7,13 +7,13 @@ This package is to replace [vue-intercom](https://github.com/johnnynotsolucky/vu
 -   [Demo](#demo)
 -   [Install](#install)
 -   [Usage](#usage)
+-   [As a service](#service)
 -   [API](#api)
 -   [Test integration locally](#test)
 
 ## Demo
 
 To view a demo online: <https://vue-intercom.netlify.app/>
-
 
 ## Install
 
@@ -61,6 +61,29 @@ new Vue({
   }
 });
 ```
+
+## Service
+
+You can also use Intercom as a service if you don't want to use it inside components.
+
+```javascript
+import { Intercom } from '@mathieustan/vue-intercom';
+
+async function initIntercomService() {
+  if (!appId) return;
+
+  const intercom = new Intercom({ appId });
+
+  // Load Intercom script
+  await intercom._load();
+  // Init Intercom listeners
+  intercom._init();
+
+  return intercom;
+}
+```
+
+You'll have access to same methods as with `$intercom`
 
 ## API
 
@@ -124,7 +147,6 @@ Calls `Intercom('startTour')` with extra metadata if provided.
 
 Calls `Intercom('getVisitorId')`.
 
-
 ## Test intercom integration locally
 
 Requires npm 12+
@@ -145,4 +167,4 @@ Finally, start project :
 npm run serve
 ```
 
-You'll be able to test from this url : http://localhost:8080
+You'll be able to test from this url : <http://localhost:8080>
