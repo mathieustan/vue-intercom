@@ -81,4 +81,29 @@ describe('Intercom: Class', () => {
     });
   });
 
+  it('should Boot Intercom', () => {
+    global.Intercom = jest.fn();
+
+    const intercom = new Intercom({ appId: 'fakeAppId' });
+    expect(intercom.isBooted).toEqual(false);
+
+    intercom.boot();
+    expect(intercom.isBooted).toEqual(true);
+    expect(global.Intercom).toHaveBeenCalledWith('boot', { app_id: 'fakeAppId' });
+  });
+
+  it('should Shutdown Intercom', () => {
+    global.Intercom = jest.fn();
+
+    const intercom = new Intercom({ appId: 'fakeAppId' });
+    expect(intercom.isBooted).toEqual(false);
+
+    intercom.boot();
+    expect(intercom.isBooted).toEqual(true);
+    expect(global.Intercom).toHaveBeenCalledWith('boot', { app_id: 'fakeAppId' });
+
+    intercom.shutdown();
+    expect(intercom.isBooted).toEqual(false);
+    expect(global.Intercom).toHaveBeenCalledWith('shutdown');
+  });
 });
