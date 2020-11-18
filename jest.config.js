@@ -25,7 +25,7 @@ module.exports = {
   setupFiles: ['./tests/setup'],
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/intercom/*.js',
+    'src/lib/*.js',
     'src/utils/*.js',
     // exclude node_modules
     '!**/node_modules/**',

@@ -8,6 +8,8 @@ export default class Intercom extends EventEmitter {
   constructor ({ appId } = {}) {
     super();
 
+    if (!isValidType(String, appId)) return;
+
     this.appId = appId;
     this.defaultOptions = { app_id: appId };
     this.ready = false;
@@ -22,12 +24,12 @@ export default class Intercom extends EventEmitter {
   }
 
   // Load intercom script with defer
-  async load (appId) {
+  async load () {
     if (!window || !document) return;
 
-    const load = () => loadAsyncScript(appId, this);
+    const load = () => loadAsyncScript(this.appId, this);
 
-    if (document.readyState === 'complete') loadAsyncScript(appId, this);
+    if (document.readyState === 'complete') loadAsyncScript(this.appId, this);
     else if (window.attachEvent) window.attachEvent('onload', load);
     else window.addEventListener('load', load, false);
 
@@ -40,14 +42,12 @@ export default class Intercom extends EventEmitter {
     this._call('onHide', () => (this.visible = false));
     this._call('onShow', () => (this.visible = true));
     this._call('onUnreadCountChange', unreadCount => (this.unreadCount = unreadCount));
-
-    this.emit('ready');
   }
 
   // Boot Intercom service with user
   boot (options) {
-    this.isBooted = true;
     this._call('boot', Object.assign({}, this.defaultOptions, options));
+    this.isBooted = true;
   }
 
   callIntercom (...args) {
