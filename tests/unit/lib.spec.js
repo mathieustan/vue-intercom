@@ -1,5 +1,9 @@
 import Intercom from '@/lib';
 
+import * as loadScriptFn from '@/utils/file';
+
+jest.useFakeTimers();
+
 describe('Intercom: Class', () => {
   afterEach(() => {
     jest.resetModules();
@@ -35,24 +39,18 @@ describe('Intercom: Class', () => {
       );
     });
 
-    it('should load intercom script & resolve promise when done', async () => {
-      const onload = jest.fn();
-      const script = { onload };
-
-      Object.defineProperties(global.document, {
-        getElementsByTagName: {
-          value: () => [{ parentNode: { insertBefore: jest.fn(() => script.onload()) } }],
-        },
-        createElement: {
-          get: () => () => script,
-        },
-      });
-
+    it('should load intercom script and init', () => {
       const intercom = new Intercom({ appId: 'fakeAppId' });
+      jest.spyOn(intercom, 'init');
 
-      expect(intercom._eventsCount).toEqual(1);
-      await intercom.load();
-      expect(intercom._eventsCount).toEqual(0);
+      intercom.load();
+      expect(loadScriptFn.loadAsyncScript).toHaveBeenCalledWith('fakeAppId', expect.any(Function));
+
+      window.dispatchEvent(new Event('load'));
+      jest.runOnlyPendingTimers();
+
+      expect(intercom.init).toHaveBeenCalled();
+      expect(intercom.ready).toEqual(true);
     });
 
     it('should init intercom listeners (onShow, onHide, onUnreadCountChange)', () => {

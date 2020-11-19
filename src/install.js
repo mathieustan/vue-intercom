@@ -5,22 +5,21 @@ import OurVue from 'vue';
 import Intercom from './lib';
 
 // Helpers
-import {
-  isValidType,
-} from './utils';
+import { isValidString } from './utils';
+import { consoleWarn, consoleError } from './utils/console';
 
 let intercomInstalled = false;
 
 export function install (Vue, options = {}) {
-  if (OurVue !== Vue) console.error(`Multiple instances of Vue detected.`);
+  if (OurVue !== Vue) consoleError(`Multiple instances of Vue detected.`);
 
   // ---------------------------
   // Init vueIntercom
   // ---------------------------
   const { appId } = options;
 
-  if (!isValidType(String, appId)) {
-    console.warn('You didn\'t specified Intercom appId. Please check your configuration.');
+  if (!isValidString(String, appId)) {
+    consoleWarn('You didn\'t specified Intercom appId. Please check your configuration.');
     return;
   }
 
@@ -35,7 +34,7 @@ export function install (Vue, options = {}) {
       if (intercomInstalled) return;
 
       // CF => https://developers.intercom.com/installing-intercom/docs/basic-javascript
-      if (typeof window.Intercom === 'function' && this.$intercom) {
+      if (typeof window.Intercom === 'function') {
         this.$intercom.init();
         this.$intercom.callIntercom('reattach_activator');
         this.$intercom.update();
@@ -47,9 +46,6 @@ export function install (Vue, options = {}) {
 
         this.$intercom = Vue.observable(intercom);
         Vue.prototype.$intercom = this.$intercom;
-
-        await this.$intercom.load();
-        this.$intercom.init();
       }
 
       intercomInstalled = true;

@@ -5,6 +5,8 @@ import { mount, createLocalVue } from '@vue/test-utils';
 
 import VueIntercom from '../../src';
 
+jest.useFakeTimers();
+
 const localVue = createLocalVue();
 localVue.use(VueIntercom, { appId: 'foobar' });
 
@@ -21,24 +23,19 @@ describe('Intercom plugin', () => {
   describe('State', () => {
     it('has default initial state', () => {
       const wrapper = mountApp();
-      expect(wrapper.vm.$intercom.ready).toEqual(true);
+      expect(wrapper.vm.$intercom.ready).toEqual(false);
       expect(wrapper.vm.$intercom.isBooted).toEqual(false);
       expect(wrapper.vm.$intercom.visible).toEqual(false);
       expect(wrapper.vm.$intercom.unreadCount).toEqual(0);
     });
 
-    it('sets ready indicator on load', (done) => {
+    it('sets ready indicator on load', () => {
       const wrapper = mountApp();
 
       window.dispatchEvent(new Event('load'));
+      jest.runOnlyPendingTimers();
 
-      setTimeout(() => {
-        wrapper.vm.$nextTick().then(() => {
-          expect(wrapper.vm.$intercom.ready).toEqual(true);
-          done();
-        }).catch(done);
-      }, 50);
-
+      expect(wrapper.vm.$intercom.ready).toEqual(true);
     });
 
     it('exposes state changes through internal vm', () => {

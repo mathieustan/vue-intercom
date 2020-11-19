@@ -2,13 +2,13 @@ import { EventEmitter } from 'events';
 
 // Helpers
 import { loadAsyncScript } from '../utils/file';
-import { isValidType } from '../utils';
+import { isValidString } from '../utils';
 
 export default class Intercom extends EventEmitter {
   constructor ({ appId } = {}) {
     super();
 
-    if (!isValidType(String, appId)) return;
+    if (!isValidString(String, appId)) return;
 
     this.appId = appId;
     this.defaultOptions = { app_id: appId };
@@ -17,20 +17,18 @@ export default class Intercom extends EventEmitter {
     this.visible = false;
     this.unreadCount = 0;
 
-    this._ready = new Promise(resolve => this.once('ready', resolve));
+    this.load();
   }
 
   // Load intercom script with defer
-  async load () {
+  load () {
     if (!window || !document) return;
 
-    const load = () => loadAsyncScript(this.appId, this);
+    const load = () => loadAsyncScript(this.appId, () => this.init());
 
-    if (document.readyState === 'complete') loadAsyncScript(this.appId, this);
+    if (document.readyState === 'complete') loadAsyncScript(this.appId, () => this.init());
     else if (window.attachEvent) window.attachEvent('onload', load);
     else window.addEventListener('load', load, false);
-
-    return this._ready;
   }
 
   // Init Intercom service
@@ -39,6 +37,8 @@ export default class Intercom extends EventEmitter {
     this.callIntercom('onHide', () => (this.visible = false));
     this.callIntercom('onShow', () => (this.visible = true));
     this.callIntercom('onUnreadCountChange', unreadCount => (this.unreadCount = unreadCount));
+
+    this.emit('ready');
   }
 
   // Boot Intercom service with user
@@ -66,7 +66,7 @@ export default class Intercom extends EventEmitter {
   showMessages () { this.callIntercom('showMessages'); }
 
   showNewMessage (content) {
-    this.callIntercom('showNewMessage', ...(isValidType(String, content) ? [content] : []));
+    this.callIntercom('showNewMessage', ...(isValidString(String, content) ? [content] : []));
   }
 
   trackEvent (name, ...metadata) { this.callIntercom('trackEvent', ...[name, ...metadata]); }

@@ -34,26 +34,30 @@ Vue.use(VueIntercom, { appId: 'your-app-id' });
 ```javascript
 new Vue({
   el: '#app',
-  data() {
-    return {
-      userId: 1,
-      name: 'Foo Bar',
-      email: 'foo@bar.com',
-    };
-  },
-  mounted() {
-    this.$intercom.boot({
-      user_id: this.userId,
-      name: this.name,
-      email: this.email,
-    });
-    this.$intercom.show();
+  data: () => ({
+    userId: 1,
+    name: 'Foo Bar',
+    email: 'foo@bar.com',
+  }),
+  created() {
+    this.$intercom.shutdown();
+    this.$intercom.once('ready', this.bootIntercom);
   },
   watch: {
     email(email) {
       this.$intercom.update({ email });
     },
-  }
+  },
+  methods: {
+    bootIntercom() {
+      this.$intercom.boot({
+        user_id: this.userId,
+        name: this.name,
+        email: this.email,
+      });
+      this.$intercom.show();
+    },
+  },
 });
 ```
 
@@ -64,17 +68,23 @@ You can also use Intercom as a service if you don't want to use it inside compon
 ```javascript
 import { Intercom } from '@mathieustan/vue-intercom';
 
-async function initIntercomService() {
-  if (!appId) return;
+const appId = 'fakeAppId';
 
-  const intercom = new Intercom({ appId });
+const intercom = new Intercom({ appId });
 
-  // Load Intercom script
-  await intercom.load();
-  // Init Intercom listeners
-  intercom.init();
+function startIntercomMessenger (user) {
+  if (!intercom.ready) {
+    intercom.once('ready', () => rebootIntercom(user));
+  } else {
+    rebootIntercom(user);
+  }
+}
 
-  return intercom;
+function rebootIntercom () {
+  intercom.shutdown();
+
+  if (intercom.isBooted) return;
+  intercom.boot(user);
 }
 ```
 
