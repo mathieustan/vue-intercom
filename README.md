@@ -4,16 +4,11 @@
 
 This package is to replace [vue-intercom](https://github.com/johnnynotsolucky/vue-intercom) which is not maintained anymore.
 
--   [Demo](#demo)
 -   [Install](#install)
 -   [Usage](#usage)
 -   [As a service](#service)
 -   [API](#api)
 -   [Test integration locally](#test)
-
-## Demo
-
-To view a demo online: <https://vue-intercom.netlify.app/>
 
 ## Install
 
