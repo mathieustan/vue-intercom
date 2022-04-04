@@ -1,7 +1,6 @@
 import path from 'path';
 
 const {
-  dependencies,
   peerDependencies,
   version,
 } = require(path.resolve(process.cwd(), 'package.json'));
@@ -23,5 +22,5 @@ export default {
     banner,
   },
   watch: { include: 'src/**' },
-  external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
+  external: [...Object.keys(peerDependencies)],
 };
