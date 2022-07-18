@@ -27,7 +27,7 @@
   "homepage": "https://vue-intercom.netlify.com/",
   "scripts": {
     "commit": "git cz",
-    "postinstall": "husky install",
+    "prepare": "husky install",
     "precommit": " concurrently \"yarn lint\" \"yarn test:client\" --kill-others-on-fail",
     "prepublishOnly": "yarn lint:fix && yarn test:client && yarn build",
     "dev": "yarn build:es -- --watch",
