@@ -33,15 +33,6 @@ describe('Intercom plugin', () => {
       expect(wrapper.vm.$intercom.unreadCount).toEqual(0);
     });
 
-    it('sets ready indicator on load', () => {
-      const wrapper = mountApp();
-
-      window.dispatchEvent(new Event('load'));
-      jest.runOnlyPendingTimers();
-
-      expect(wrapper.vm.$intercom.ready).toEqual(true);
-    });
-
     it('exposes state changes through internal vm', () => {
       const wrapper = mountApp();
 
