@@ -1,9 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "include": [
+    "build",
     "dev",
     "src",
-    "tests"
+    "tests",
+    ".*.js",
+    "*.js",
   ],
   "exclude": [
     "types-temp"

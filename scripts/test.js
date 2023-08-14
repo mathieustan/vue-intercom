@@ -8,7 +8,7 @@ const alias = {
 target = alias[target] || target;
 
 if (!target) {
-  spawn('npx', ['lerna', 'run', 'test', '--scope=' + alias.core, '--stream'], { stdio: 'inherit' });
+  spawn('npx', ['lerna', 'run', 'test'], { stdio: 'inherit' });
 } else {
   spawn('npx', ['lerna', 'run', 'test', '--scope=' + target, '--stream'], { stdio: 'inherit' });
 }
