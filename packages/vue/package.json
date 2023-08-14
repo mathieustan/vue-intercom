@@ -45,7 +45,7 @@
   },
   "homepage": "https://vue-intercom.netlify.com/",
   "scripts": {
-    "prepublishOnly": "yarn lint:fix && yarn test:client && yarn build",
+    "prepublishOnly": "yarn lint && yarn test && yarn build",
     "dev": "cross-env NODE_ENV=development vite",
     "build": "rimraf lib dist && concurrently \"yarn build:dist\" \"yarn build:lib\" -n \"dist,lib\" --kill-others-on-fail -r && yarn build:types",
     "build:dist": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs",

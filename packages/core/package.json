@@ -44,6 +44,7 @@
     }
   },
   "scripts": {
+    "prepublishOnly": "yarn lint && yarn test && yarn build",
     "dev": "node --no-warnings lib/index.mjs",
     "build": "yarn build:clean && yarn build:lib && yarn build:types && yarn dev",
     "build:clean": "rm -rf lib/",
