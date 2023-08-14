@@ -38,12 +38,12 @@
   "unpkg": "dist/vue-intercom.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mathieustan/vue-intercom.git"
+    "url": "git+https://github.com/mathieustan/vue-intercom.git",
+    "directory": "packages/vue"
   },
   "bugs": {
     "url": "https://github.com/mathieustan/vue-intercom/issues"
   },
-  "homepage": "https://vue-intercom.netlify.com/",
   "scripts": {
     "prepublishOnly": "yarn lint && yarn test && yarn build",
     "dev": "cross-env NODE_ENV=development vite",
@@ -77,5 +77,8 @@
   },
   "directories": {
     "test": "tests"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

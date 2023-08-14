@@ -10,12 +10,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mathieustan/vue-intercom.git"
+    "url": "git+https://github.com/mathieustan/vue-intercom.git",
+    "directory": "packages/core"
   },
   "bugs": {
     "url": "https://github.com/mathieustan/vue-intercom/issues"
   },
-  "homepage": "https://vue-intercom.netlify.com/",
   "main": "lib/index.mjs",
   "module": "lib/index.mjs",
   "jsdelivr": "dist/intercom.min.js",
@@ -60,5 +60,8 @@
   "devDependencies": {
     "@babel/node": "^7.20.7",
     "babel-plugin-add-import-extension": "1.5.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
