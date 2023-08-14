@@ -1,6 +1,7 @@
 # vue-intercom
 
-> A wrapper for Intercom.
+> This branch is used for Vue2 only. (last version is 0.0.9)
+> Check [vue3 branch](https://github.com/mathieustan/vue-intercom/tree/vue3) for Vue3.
 
 This package is to replace [vue-intercom](https://github.com/johnnynotsolucky/vue-intercom) which is not maintained anymore.
 
