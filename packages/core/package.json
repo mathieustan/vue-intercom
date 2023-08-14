@@ -1,7 +1,7 @@
 {
   "name": "@mathieustan/intercom",
   "description": "A javascript library to easily use Intercom inside app",
-  "version": "0.0.9",
+  "version": "1.0.0-alpha.0",
   "author": "Mathieu Stanowski <mathieu.stan@gmail.com>",
   "license": "MIT",
   "keywords": [

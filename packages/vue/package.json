@@ -1,7 +1,7 @@
 {
   "name": "@mathieustan/vue-intercom",
   "description": "A wrapper for Intercom",
-  "version": "0.0.9",
+  "version": "1.0.0-alpha.0",
   "author": "Mathieu Stanowski <mathieu.stan@gmail.com>",
   "license": "MIT",
   "keywords": [
@@ -56,15 +56,15 @@
     "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
-    "@mathieustan/intercom": "^0.0.9"
+    "@mathieustan/intercom": "^1.0.0-alpha.0"
   },
   "peerDependencies": {
     "vue": "^3.2.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.22.9",
-    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vitejs/plugin-vue": "^4.2.2",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/test-utils": "2.3.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.5.0",
