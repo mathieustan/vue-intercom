@@ -1,0 +1,81 @@
+{
+  "name": "@mathieustan/vue-intercom",
+  "description": "A wrapper for Intercom",
+  "version": "0.0.9",
+  "author": "Mathieu Stanowski <mathieu.stan@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "vuejs",
+    "javascript",
+    "vue-component",
+    "intercom"
+  ],
+  "files": [
+    "dist/*.js"
+  ],
+  "exports": {
+    ".": {
+      "default": "./lib/index.mjs"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "lib/index.mjs": [
+        "lib/index.d.mts"
+      ],
+      "*": [
+        "*",
+        "dist/*",
+        "lib/*"
+      ]
+    }
+  },
+  "main": "lib/index.mjs",
+  "module": "lib/index.mjs",
+  "jsdelivr": "dist/vue-intercom.min.js",
+  "unpkg": "dist/vue-intercom.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathieustan/vue-intercom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mathieustan/vue-intercom/issues"
+  },
+  "homepage": "https://vue-intercom.netlify.com/",
+  "scripts": {
+    "prepublishOnly": "yarn lint:fix && yarn test:client && yarn build",
+    "dev": "cross-env NODE_ENV=development vite",
+    "build": "rimraf lib dist && concurrently \"yarn build:dist\" \"yarn build:lib\" -n \"dist,lib\" --kill-others-on-fail -r && yarn build:types",
+    "build:dist": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs",
+    "build:lib": "cross-env NODE_ENV=lib babel src --out-dir lib --source-maps --extensions \".ts\",\".tsx\",\".snap\" --copy-files --no-copy-ignored --out-file-extension .mjs",
+    "build:types": "rimraf types-temp && tsc --pretty --emitDeclarationOnly -p tsconfig.dist.json && rollup --config build/rollup.types.config.mjs && rimraf types-temp",
+    "lint": "concurrently -n \"tsc,eslint\" --kill-others-on-fail \"tsc -p tsconfig.checks.json --noEmit --pretty\" \"eslint --ext .ts,.tsx,.js,.vue src tests --ignore-pattern *.d.ts \"",
+    "lint:fix": "concurrently -n \"tsc,eslint\" \"tsc -p tsconfig.checks.json --noEmit --pretty\" \"eslint --fix --ext .ts,.tsx,.js,.vue src tests --ignore-pattern *.d.ts\"",
+    "test": "cross-env NODE_ENV=test jest"
+  },
+  "dependencies": {
+    "@mathieustan/intercom": "^0.0.9"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.22.9",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "@vitejs/plugin-vue": "^4.2.2",
+    "@vue/test-utils": "2.3.2",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^29.5.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-define": "^2.0.1",
+    "core-js": "^3.14.0",
+    "vite-ssr": "^0.17.1",
+    "vue": "^3.2.0",
+    "vue-router": "^4.1.6"
+  },
+  "directories": {
+    "test": "tests"
+  }
+}

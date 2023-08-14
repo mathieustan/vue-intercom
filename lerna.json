@@ -1,0 +1,22 @@
+{
+  "command": {
+    "publish": {
+      "allowBranch": [
+        "master",
+        "dev",
+        "vue3"
+      ],
+      "conventionalCommits": true,
+      "message": ":package:(release): publish %s"
+    },
+    "version": {
+      "push": true
+    }
+  },
+  "packages": [
+    "packages/*"
+  ],
+  "npmClient": "yarn",
+  "useNx": true,
+  "version": "independent"
+}

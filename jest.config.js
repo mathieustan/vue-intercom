@@ -1,34 +1,27 @@
 module.exports = {
-  moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
-  transform: {
-    '^.+\\.vue$': 'vue-jest',
-    '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
-    '^.+\\.jsx?$': 'babel-jest',
+  verbose: false,
+  testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'node-addons'],
   },
-  transformIgnorePatterns: [
-    '/node_modules/',
+  moduleFileExtensions: [
+    'tsx',
+    'ts',
+    'js',
+    'mjs',
+  ],
+  moduleDirectories: [
+    'node_modules',
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  snapshotSerializers: [
-    'jest-serializer-vue',
-  ],
+  transform: {
+    '.*\\.(j|t)sx?$': 'babel-jest',
+    '^.+\\.mjs$': 'babel-jest',
+  },
   testMatch: [
-    '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
+    // Default
+    '**/*.spec.(js|ts)',
   ],
-  testURL: 'http://localhost/',
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname',
-  ],
-  setupFiles: ['./tests/setup'],
-  collectCoverage: true,
-  collectCoverageFrom: [
-    'src/lib/*.js',
-    'src/utils/*.js',
-    // exclude node_modules
-    '!**/node_modules/**',
-  ],
-  coverageDirectory: '<rootDir>/tests/coverage/',
 };

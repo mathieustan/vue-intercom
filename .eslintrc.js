@@ -1,67 +1,103 @@
+const OFF = 0;
+const WARN = 1;
+const ERROR = 2;
+
 module.exports = {
   root: true,
-  env: {
-    node: true,
-  },
-  extends: ['plugin:vue/essential', '@vue/standard'],
-  rules: {
-    // Require braces in arrow function body: disabled
-    "arrow-body-style": 'off',
-    // require trailing commas: always | multiline
-    'comma-dangle': ['error', 'always-multiline'],
-    // require return statements: disabled
-    'consistent-return': 'off',
-    // named function expressions: never
-    'func-names': ['error', 'never'],
-    // Disallow duplicate imports
-    'import/prefer-default-export': 'off',
-    // enforce a maximum line length: 120
-    'max-len': ['warn', {
-      code: 120,
-      ignoreComments: true,
-      ignoreRegExpLiterals: true,
-      ignoreStrings: true,
-      ignoreTemplateLiterals: true,
-      ignoreTrailingComments: true,
-      ignoreUrls: true,
-      tabWidth: 2,
-    }],
-    // require constructor names to begin with a capital letter
-    'new-cap': ['error', { capIsNew: false }],
-    // Disallow await inside of loops: disabled
-    'no-await-in-loop': 'off',
-    // disallow the use of console
-    'no-console': ['error', { allow: ['error', 'log', 'warn'] }],
-    // disallow the use of debugger in production
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    // Disallow multiple spaces
-    'no-multi-spaces': ['error', { ignoreEOLComments: true }],
-    // disallow multiple empty lines: Max is 1 empty line
-    'no-multiple-empty-lines': ['error', { max: 1 }],
-    // Disallow Reassignment of Function Parameters: disabled
-    'no-param-reassign': 'off',
-    // Disallow Undeclared Variables
-    'no-undef': 'error',
-    // disallow dangling underscores: disabled
-    'no-underscore-dangle': 'off',
-    // Disallow Unused Variables
-    'no-unused-vars': ['error', {
-      vars: 'all',
-      varsIgnorePattern: '^(_|_.+_)$',
-      argsIgnorePattern: '^(_|_.+_)$'
-    }],
-    // Disallow Early Use except functions
-    'no-use-before-define': ['error', { functions: false }],
-    // enforce consistent linebreak style for operators: disabled
-    'operator-linebreak': 'off',
-    // Padding within blocks: disabled
-    'padded-blocks': 'off',
-    // enforce the consistent use of either backticks, double, or single quotes
-    quotes: ['error', 'single', { allowTemplateLiterals: true }],
-    // require semicolons: always
-    semi: ['error', 'always'],
-  },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    project: './tsconfig.eslint.json',
+    tsconfigRootDir: __dirname,
+    extraFileExtensions: ['.vue'],
   },
+  extends: [
+    'standard',
+    'plugin:vue/vue3-recommended',
+  ],
+  env: {
+    es2021: true,
+    node: true,
+    jest: true,
+  },
+  plugins: [
+    '@typescript-eslint',
+  ],
+  rules: {
+    'arrow-body-style': OFF,
+    'comma-dangle': [ERROR, 'always-multiline'],
+    'consistent-return': OFF,
+    'func-call-spacing': OFF,
+    'func-names': OFF,
+    'import/no-named-default': OFF,
+    'import/prefer-default-export': OFF,
+    'max-len': ['warn', { code: 120, ignoreComments: true, ignoreRegExpLiterals: true, ignoreStrings: true, ignoreTemplateLiterals: true, ignoreTrailingComments: true, ignoreUrls: true, tabWidth: 2 }],
+    'multiline-ternary': OFF,
+    'new-cap': [ERROR, { capIsNew: false }],
+    'no-await-in-loop': OFF,
+    'no-case-declarations': OFF,
+    'no-console': [ERROR, { allow: ['error', 'log', 'warn'] }],
+    'no-debugger': process.env.NODE_ENV === 'production' ? WARN : OFF,
+    'no-multi-spaces': [ERROR, { ignoreEOLComments: true }],
+    'no-multiple-empty-lines': [ERROR, { max: 1 }],
+    'no-param-reassign': OFF,
+    'no-prototype-builtins': OFF,
+    'no-undef': ERROR,
+    'no-underscore-dangle': OFF,
+    'no-unused-vars': [ERROR, { vars: 'all', argsIgnorePattern: '^_' }],
+    'no-use-before-define': [ERROR, { functions: false }],
+    'no-void': OFF,
+    'operator-linebreak': OFF,
+    'padded-blocks': OFF,
+    'quote-props': OFF,
+    'quotes': [ERROR, 'single', { allowTemplateLiterals: true }],
+    'semi': [ERROR, 'always'],
+    // Specific to vue
+    'vue/multi-word-component-names': OFF,
+    'vue/no-reserved-component-names': OFF,
+    'vue/no-useless-template-attributes': OFF,
+    'vue/no-v-text-v-html-on-component': OFF,
+    'vue/one-component-per-file': OFF,
+    'vue/require-default-prop': OFF,
+    'vue/valid-next-tick': OFF,
+    'vue/max-attributes-per-line': [WARN, {
+      'singleline': { 'max': 3 },
+      'multiline': { 'max': 1 },
+    }],
+  },
+  overrides: [
+    {
+      files: ['**/*.ts', '**/*.tsx', '**/*.d.ts'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+      ],
+      rules: {
+        '@typescript-eslint/no-explicit-any': OFF,
+        '@typescript-eslint/ban-ts-comment': OFF,
+        '@typescript-eslint/ban-types': OFF,
+        '@typescript-eslint/no-empty-function': OFF,
+        '@typescript-eslint/no-empty-interface': OFF,
+        '@typescript-eslint/no-namespace': OFF,
+        '@typescript-eslint/no-non-null-assertion': OFF,
+        '@typescript-eslint/no-this-alias': OFF,
+        '@typescript-eslint/no-unnecessary-type-constraint': WARN,
+        '@typescript-eslint/no-unused-vars': [ERROR, { vars: 'all', varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+        '@typescript-eslint/no-var-requires': OFF,
+        '@typescript-eslint/consistent-type-imports': [ERROR, {
+          prefer: 'type-imports',
+          fixStyle: 'separate-type-imports',
+        }],
+        'import/consistent-type-specifier-style': [ERROR, 'prefer-top-level'],
+        'import/no-duplicates': [ERROR, { 'prefer-inline': false }],
+      },
+    },
+    {
+      files: '**/*.d.ts',
+      rules: {
+        'import/no-duplicates': OFF,
+        'no-unused-vars': OFF,
+      },
+    },
+  ],
 };

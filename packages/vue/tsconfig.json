@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "dev",
+    "src",
+    "tests"
+  ],
+  "exclude": [
+    "types-temp"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./types-temp",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": [
+      "vite/client",
+      "jest",
+      "node"
+    ],
+    "noImplicitAny": false,
+    "stripInternal": true,
+    "skipLibCheck": true
+  }
+}

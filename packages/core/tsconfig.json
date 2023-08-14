@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src",
+    "tests",
+  ],
+  "exclude": [
+    "types-temp"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./types-temp",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": [
+      "jest",
+      "node"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false,
+    "stripInternal": true
+  }
+}

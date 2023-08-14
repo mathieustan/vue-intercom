@@ -1,0 +1,63 @@
+{
+  "name": "@mathieustan/intercom",
+  "description": "A javascript library to easily use Intercom inside app",
+  "version": "0.0.9",
+  "author": "Mathieu Stanowski <mathieu.stan@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "javascript",
+    "intercom"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathieustan/vue-intercom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mathieustan/vue-intercom/issues"
+  },
+  "homepage": "https://vue-intercom.netlify.com/",
+  "main": "lib/index.mjs",
+  "module": "lib/index.mjs",
+  "jsdelivr": "dist/intercom.min.js",
+  "unpkg": "dist/intercom.js",
+  "files": [
+    "dist/",
+    "lib/",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": {
+      "default": "./lib/index.mjs"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "lib/index.mjs": [
+        "lib/index.d.mts"
+      ],
+      "*": [
+        "*",
+        "dist/*",
+        "lib/*"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "node --no-warnings lib/index.mjs",
+    "build": "yarn build:clean && yarn build:lib && yarn build:types && yarn dev",
+    "build:clean": "rm -rf lib/",
+    "build:lib": "cross-env NODE_ENV=lib babel src --out-dir lib --source-maps --extensions \".ts\" --out-file-extension .mjs",
+    "build:types": "rimraf types-temp && tsc --pretty --emitDeclarationOnly -p tsconfig.dist.json && rollup --config build/rollup.types.config.mjs && rimraf types-temp",
+    "lint": "eslint --ext .ts src --max-warnings 0",
+    "lint:fix": "yarn lint --fix",
+    "test": "cross-env NODE_ENV=test jest"
+  },
+  "dependencies": {
+    "events": "^3.3.0"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.20.7",
+    "babel-plugin-add-import-extension": "1.5.1"
+  }
+}
