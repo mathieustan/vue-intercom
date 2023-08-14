@@ -1,16 +1,11 @@
 # vue-intercom
 
-> A wrapper for Intercom.
+> - version < 1.0.0 is for Vue2
+> - version >= 1.0.0 is for Vue3
 
-This package is to replace [vue-intercom](https://github.com/johnnynotsolucky/vue-intercom) which is not maintained anymore.
+## Vue3
 
--   [Install](#install)
--   [Usage](#usage)
--   [As a service](#service)
--   [API](#api)
--   [Test integration locally](#test)
-
-## Install
+### Install
 
 ```bash
 npm install --save @mathieustan/vue-intercom
@@ -21,13 +16,50 @@ yarn add @mathieustan/vue-intercom
 ```
 
 ```javascript
-import Vue from 'vue';
-import VueIntercom from '@mathieustan/vue-intercom';
+import { createApp } from 'vue';
+import { createIntercom } from '@mathieustan/vue-intercom';
 
-Vue.use(VueIntercom, { appId: 'your-app-id' });
+const app = createApp(/**/);
+const intercom = createIntercom({ appId: 'your-app-id' });
+app.use(intercom);
 ```
 
-## Usage
+### useIntercom
+
+Inside a setup, you can easily use `useIntercom` to manage intercom.
+
+```ts
+<script setup lang="ts">
+import { shallowRef, onBeforeMount, watch } from 'vue';
+import { useIntercom } from '@mathieustan/vue-intercom';
+
+const userId = shallowRef('id');
+const name = shallowRef('name');
+const email = shallowRef('email');
+
+const intercom = useIntercom();
+
+onBeforeMount(() => {
+  intercom.shutdown();
+  intercom.once('ready', bootIntercom);
+});
+
+watch(email, (newEmail) => {
+  intercom.update({ email: newEmail });
+});
+
+function bootIntercom() {
+  intercom.boot({
+    user_id: userId.value,
+    name: name.value,
+    email: email.value,
+  });
+  intercom.show();
+}
+</script>
+```
+
+### $intercom
 
 `vue-intercom` handles the injection of Intercom's script into your html and wraps calls to the Intercom API with methods and exposes them through the `$intercom` object in your components.
 
@@ -65,8 +97,20 @@ new Vue({
 
 You can also use Intercom as a service if you don't want to use it inside components.
 
+### Install
+
+```bash
+npm install --save @mathieustan/intercom
+
+or
+
+yarn add @mathieustan/intercom
+```
+
+### Usage
+
 ```javascript
-import { Intercom } from '@mathieustan/vue-intercom';
+import Intercom from '@mathieustan/intercom';
 
 const appId = 'fakeAppId';
 
@@ -160,8 +204,8 @@ First, clone project & install doc dependencies :
 
 ```bash
 git clone git@github.com:mathieustan/vue-intercom.git
-cd vue-intercom/doc-src/
-npm install
+cd vue-intercom
+yarn build
 ```
 
 Then, you need to set your `VUE_APP_INTERCOM_APP_ID` inside `.env` file.
@@ -169,7 +213,7 @@ Then, you need to set your `VUE_APP_INTERCOM_APP_ID` inside `.env` file.
 Finally, start project :
 
 ```bash
-npm run serve
+yarn dev vue
 ```
 
-You'll be able to test from this url : <http://localhost:8080>
+You'll be able to test from this url : <http://localhost:5173>
