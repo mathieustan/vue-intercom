@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.2](https://github.com/mathieustan/vue-intercom/compare/@mathieustan/vue-intercom@1.0.0-alpha.1...@mathieustan/vue-intercom@1.0.0-alpha.2) (2024-01-10)
+
+
+### Bug Fixes
+
+* **chore:** fixed eported files ([cbad4d2](https://github.com/mathieustan/vue-intercom/commit/cbad4d2c1f37edce75562e5ceb9b4322e91796a8))
+
+
+
+
+
 # [1.0.0-alpha.1](https://github.com/mathieustan/vue-intercom/compare/@mathieustan/vue-intercom@1.0.0-alpha.0...@mathieustan/vue-intercom@1.0.0-alpha.1) (2024-01-10)
 
 
