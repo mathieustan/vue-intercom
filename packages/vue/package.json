@@ -12,7 +12,9 @@
     "intercom"
   ],
   "files": [
-    "dist/*.js"
+    "dist/",
+    "lib/",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": {
