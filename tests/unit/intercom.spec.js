@@ -168,6 +168,16 @@ describe('Intercom plugin', () => {
       });
     });
 
+    describe('showConversation', () => {
+      it('called', () => {
+        const wrapper = mountApp();
+        wrapper.vm.$intercom.showConversation('123');
+
+        expect(window.Intercom).toHaveBeenCalledTimes(1);
+        expect(window.Intercom).toHaveBeenCalledWith('showConversation', '123');
+      });
+    });
+
     describe('showMessages', () => {
       it('called', () => {
         const wrapper = mountApp();

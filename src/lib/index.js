@@ -63,6 +63,10 @@ export default class Intercom extends EventEmitter {
 
   hide () { this.callIntercom('hide'); }
 
+  showConversation (conversationId) {
+    this.callIntercom('showConversation', conversationId);
+  }
+
   showMessages () { this.callIntercom('showMessages'); }
 
   showNewMessage (content) {
