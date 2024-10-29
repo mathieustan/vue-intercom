@@ -72,6 +72,7 @@ export interface IntercomCommandSignature {
   show: () => void;
   showMessages: () => void;
   showNewMessage: (prepopulateMessage?: string) => void;
+  showConversation: (conversationId: string) => void;
   onHide: (callback: () => void) => void;
   onShow: (callback: () => void) => void;
   onUnreadCountChange: (callback: (unreadCount: number) => void) => void;

@@ -225,6 +225,16 @@ describe('Intercom: Class', () => {
         });
       });
 
+      describe('showConversation', () => {
+        it('called', () => {
+          const intercom = new Intercom({ appId: 'fakeAppId' });
+          intercom.showConversation('conversationId');
+
+          expect(window.Intercom).toHaveBeenCalledTimes(1);
+          expect(window.Intercom).toHaveBeenCalledWith('showConversation', 'conversationId');
+        });
+      });
+
       describe('trackEvent', () => {
         it('called with event name', () => {
           const intercom = new Intercom({ appId: 'fakeAppId' });

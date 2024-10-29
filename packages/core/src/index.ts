@@ -91,6 +91,10 @@ export default class Intercom extends EventEmitter {
     this.callIntercom('showNewMessage', ...(isValidString(content) ? [content] : []));
   }
 
+  showConversation (conversationId: string) {
+    this.callIntercom('showConversation', conversationId);
+  }
+
   startTour (id: number) { this.callIntercom('startTour', id); }
 
   showArticle (articleId: number) { this.callIntercom('showArticle', articleId); }
