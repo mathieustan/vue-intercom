@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/mathieustan/vue-intercom/compare/@mathieustan/vue-intercom@1.0.0-alpha.2...@mathieustan/vue-intercom@1.0.0) (2024-10-30)
+
+**Note:** Version bump only for package @mathieustan/vue-intercom
+
+
+
+
+
 # [1.0.0-alpha.2](https://github.com/mathieustan/vue-intercom/compare/@mathieustan/vue-intercom@1.0.0-alpha.1...@mathieustan/vue-intercom@1.0.0-alpha.2) (2024-01-10)
 
 
